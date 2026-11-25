@@ -1,0 +1,786 @@
+# Haven Desktop Changelog
+
+## Unreleased
+
+### Added
+- **Activity from your other apps (Haven #5894, asked for by gitty323).** Games and music players that support rich presence, the kind that shows in Discord, can show as your activity in Haven. Switch it on under Settings > Activity > Show activity from apps on this computer (the server needs Haven 4.30.0 or newer). It is off until you do, the app asks you for each server separately, and a server you did not say yes to hears nothing. Everything stays on your computer: nothing is looked up online, so there is no artwork, and the app's name is the one it gives itself or the name of its program. It only works while Discord itself is closed, since Discord takes those announcements first. Apps installed as Flatpak or Snap look for Discord inside their own sandbox and may need the usual link to the real location.
+
+## v1.8.4
+
+### Added
+- **The tray icon shows unread messages.** It gets a red dot while there is something unread, the same as the taskbar button, so you can tell with the window hidden to the tray (asked for by Grester).
+- **Keep running in the tray when closed** is now in the tray icon's menu. It is the same setting as Settings > Desktop App > Minimize to Tray on Close, put where people look for it: with it on, closing the window hides Haven to the tray and takes it off the taskbar.
+
+### Fixed
+- **Clicks pass through the voice overlay on X11 (#73).**
+- **A mouse's back button no longer leaves the app (Haven #5886).** Pressing it could take Haven back to the login page and drop the call you were in. The app now keeps no earlier page to go back to.
+
+## v1.8.3
+
+### Fixed
+- **Reading a channel clears its notification everywhere (#72).** When you read a channel in Haven,
+  on this computer or another device, its desktop notification goes away, from the Notification
+  Center too, and the taskbar stops flashing. A channel shows one notification at a time instead of
+  a pile, and clicking one from a server that isn't on screen switches to that server. Thanks Roolk.
+- **A window you can't reach can come back (Haven #5847).** The tray icon has **Move window to main screen**, for when Haven opens on a monitor you can't see, such as a VR headset that's off. A window saved on a monitor that's gone now opens on one that's there, and one left on a monitor that gets unplugged moves back.
+- **The browser no longer opens by itself at startup (#71).** A server in the background could send its address to your browser when it redirected, which happened on every launch if a server was saved as both `http://` and `https://`. A server that isn't on screen now never opens the browser, and an `http://` copy of a saved `https://` server isn't loaded in the background.
+
+### Added
+- **Voice overlay for games.** A small see-through panel that stays above
+  your game and shows who is in your voice call, who is talking (their
+  picture lights up green), who is muted or deafened, and new messages in
+  the call's channel, which fade after a few seconds. Clicks go through it
+  to the game, and it never takes focus. Turn it on from the tray icon:
+  **Voice overlay → Show voice overlay**. The same menu moves it, snaps it
+  to a corner, shows only who is talking, hides messages, and sets its size
+  and opacity. It works over windowed and borderless full-screen games. On
+  Linux with Wayland it needs X11 mode (Settings, Desktop App) to stay on
+  top. Silent and burn-after-read messages, muted people and channels stay
+  out of it, and spoilers stay hidden. Thanks Dawnforger (#70).
+
+## v1.8.2
+
+### Fixed
+- **Right-clicking a video or sound now gives a menu** with Play/Pause, Mute,
+  Loop, Show Controls, Save and Copy Address, like in a browser. Before, it
+  showed nothing (Haven #5825).
+
+## v1.8.1
+
+### Security
+- **Updated Electron, the browser engine inside the app, to 42.11.17.** It
+  fixes a case where the check that decides whether to trust a server's
+  certificate could be skipped for a request, and brings Chromium's latest
+  certificate fixes. Updating is recommended for everyone.
+
+## v1.8.0
+
+### Added
+- **Push to mute.** A new hold shortcut under Desktop shortcuts mutes your
+  mic while it is held, and works while a game has focus, so it can share a
+  key with a game's own push to talk. Needs Haven server 4.25.0.
+- **Media keys control Listen Together.** Play/Pause, Next and Previous on
+  the keyboard work while the shared player is playing, and the keys go back
+  to other apps when it stops.
+
+### Fixed
+- **Games show up in the Linux app audio list (Haven #5760).** Apps that
+  talk to PipeWire directly, like Team Fortress 2 and Flatpak games, were
+  left out of "Audio from one application".
+- **Running Haven Desktop from source keeps the Haven icon on the taskbar**
+  after notifications, instead of Electron's icon or a blank page.
+
+## v1.7.1
+
+### Security
+- **Security fixes.** Updating is recommended for everyone.
+
+### Changed
+- **Pop-up messages from a server say which server they come from,** and
+  notifications from a server you are not looking at start with its name.
+- **Mute and deafen shortcuts can no longer be a single letter key,** since
+  that grabbed the key everywhere on your PC. Hold push to talk on a letter
+  key still works.
+
+### Fixed
+- **A full screen stream covers the whole window (Haven #5755).** Parts of the
+  page behind it could still be clicked or dragged.
+- **Running Haven Desktop from source keeps the Haven icon on the taskbar,**
+  instead of Electron's icon or a blank page.
+
+## v1.7.0
+
+### Added
+- **Mute any server from the server bar.** Right-click a server's icon to
+  mute it, or mute it except for @mentions. DMs still come through, and
+  muted servers show a 🔕 mark. Needs Haven server 4.23.0 or newer.
+- **Share the sound of the window you are sharing (Haven #5760).** The share
+  picker has a new audio choice, Audio from the shared window, which picks up
+  the app behind the window you share. It is on by default and remembered.
+- **The taskbar flash on notifications can be switched off** in Settings.
+
+### Fixed
+- **Games running as administrator or behind anti-cheat show up in the share
+  audio list (Haven #5760).**
+
+## v1.6.3
+
+### Fixed
+- **The window's right and bottom edges can be grabbed to resize it again on
+  Windows.** The server page covered those edges since the move to Electron
+  42, so the cursor flickered and the edge would not take hold. The page now
+  stops 1 pixel short of them (not while maximized or full screen).
+
+## v1.6.2
+
+### Fixed
+- **The update banner shows up reliably (#63).** The app remembers an update
+  it found and shows it on every server page once the page has loaded, and it
+  checks again every few hours.
+- **Push to talk does nothing outside a voice call (#64).** The key no longer
+  plays the mute sound or changes your mute setting when you are not in voice.
+
+### Changed
+- README and docs cleanup.
+
+## v1.6.1
+
+### Fixed
+- **X11 mode no longer stops Haven Desktop from opening (Haven #5741).** In
+  1.6.0, turning on Run in X11 mode on Linux could make every launch quit.
+  Haven now starts its X11 copy itself, and if an X11 start ever fails, the
+  next launch turns X11 mode off, opens normally and says so. Launching
+  Haven again also brings back a window hidden in the tray.
+- **Joining a server by its public IP address works again (#62).** The
+  server's own certificate gets the usual trust question instead of being
+  refused before it was asked, from the Join screen and from the server
+  picker. An http:// address on the HTTPS port is retried as https://.
+- **A damaged saved server list no longer stops servers from opening.**
+
+### Changed
+- **Server pages can no longer change your server list without asking you.**
+  Adding, removing, renaming or changing the icon of another server, or
+  opening a server you do not have, now shows the app's own question naming
+  the change and which server asked. Reordering and a server reporting its
+  own name need no question. A request you turn down can be asked again
+  after a minute, and you can ignore a server's requests until Haven
+  restarts.
+- **A name you type when adding a server is kept as your own**, and a saved
+  order can only move servers already in your list.
+
+## v1.6.0
+
+### Added
+- **Linux: X11 mode (Haven #5721).** A switch in Settings, Desktop App runs
+  Haven Desktop through X11 (XWayland) instead of native Wayland, for
+  windows that flicker on Wayland, which some Nvidia cards do. Haven Desktop
+  restarts itself in that mode, the same as starting it with
+  `--ozone-platform=x11`, so no terminal is needed. Off by default.
+
+### Changed
+- **One server list for every server.** The app keeps a single list that
+  every server's sidebar follows. A server you remove stays removed instead
+  of coming back from another server's copy, and removing it also closes its
+  background connection. Opening a server or adding it again brings it
+  back. The order you drag servers into and the names you give them show
+  on every server, and the newer rename wins. The list holds 100 servers
+  instead of 20, and when full it drops the one used longest ago. Needs
+  Haven 4.19.0 on the server for order and names to follow everywhere.
+- **The server picker** shows each server under the same name as the
+  sidebar (the server's own name rather than its window title), and never
+  over a name you chose.
+
+## v1.5.0
+
+### Added
+- **A new screen share picker (#57).** Sharing opens its own window that the
+  server page cannot click or control, and capture only starts from there.
+  Screens and windows scroll in their own area, and the audio and video
+  options always stay in view below them.
+- **Share one app's audio, or the whole system's (#57).** Pick an application
+  under "Audio from one application" to share just its sound (Windows 10
+  22H2 and later, and Linux with PulseAudio or PipeWire), or share all system
+  audio. The picker says plainly when sharing audio is not available.
+- **Hardware video encoding preference (#57).** Choose H.264, H.265 or AV1
+  with hardware encoding first. Viewers whose device cannot decode that
+  choice still get video.
+- **Linux: VA-API bypass (#57).** An opt-in switch for graphics cards on
+  Chromium's VA-API blocklist, in Settings, Desktop App. Off by default.
+
+### Fixed
+- **Push to talk toggle on Linux (Haven #5724).** On Wayland the toggle key
+  did nothing while Haven was focused, and holding a key flipped the mic back
+  and forth. Toggle now works from inside the window too, once per press.
+  Please try it and let us know.
+- **Washed-out colors on mixed HDR and SDR monitors (#59).** With Force SDR
+  on, Windows now uses a color profile that fixes washed-out whites without
+  turning off H.265. If you use Force SDR, please try it and let us know.
+- **Go Back to Welcome closed the app on Linux (Haven #5715).** It returns to
+  the welcome window now.
+- **Running from source:** the taskbar shows Haven's icon instead of
+  Electron's, and an out-of-date audio module says so in the share picker
+  instead of listing no apps.
+
+### Security
+- Dependency updates for brace-expansion, fast-uri, http-cache-semantics and
+  undici.
+
+---
+
+## v1.4.40
+
+### Changed
+- **Haven's new home.** The app's website link and contact address now point
+  to haven-app.com.
+
+---
+
+## v1.4.39
+
+### Fixed
+- **A server that opens in a second in a browser sat on "connecting" in the
+  app.** The app kept the loading screen up until every picture and script
+  on the page had arrived, so one slow outside image (a blocked avatar
+  host, say) held the whole server back. It shows the page as soon as it is
+  ready now, the way a browser does, and the rest fills in after.
+
+---
+
+## v1.4.38
+
+### Fixed
+- **The taskbar kept flashing (Haven #5693).** It flashed whenever any
+  server you are signed into had something unread, including channels you
+  had muted and with pop-ups set to Never. It flashes when a notification
+  actually shows now, and stops when you click into the app.
+- **No notification for the open chat while the app was minimised or in the
+  background (#58).** Returning to the window now hands focus to the page, so
+  Haven can tell whether you are looking at the chat. Needs the next Haven
+  server update too.
+- **A slow connection ended in "Connection Problem".** The app gave up on a
+  server whose page had not finished loading within 15 seconds, even while it
+  was still arriving, so a slow route to the server looked like a dead one.
+  It keeps waiting while the page loads, up to 90 seconds, the way a browser
+  does.
+
+---
+
+## v1.4.37
+
+### Security
+- **Server certificates are checked.** The app accepted every certificate from
+  every server, so someone on the same network could pose as a remote server
+  and read what you sent it. A certificate your system trusts works as before,
+  and this computer and your local network stay automatic. A remote server
+  with a certificate of its own (Haven makes one when it has none) asks once
+  whether to trust it and remembers your answer; if that certificate later
+  changes, the app says so and asks again. Servers you had already used are
+  trusted on their next connection without asking.
+- **Server pages can no longer capture another app's sound on their own.** A
+  page could list the apps playing sound and start capturing one with nothing
+  on screen to say so. App audio is only captured from the screen-share picker
+  now.
+
+---
+
+## v1.4.36
+
+### Security
+Update soon. A server you connect to, or a script injected into one, could
+reach further into your computer than any web page should.
+
+- **Links a server page opened went to Windows unchecked.** Anything that was
+  not the server itself was handed to the system to open, including the kinds
+  of links Windows uses to run programs. Only web links go to your browser now.
+- **A server page could change the app's own settings**, including which
+  folder "host a server" starts from, so the next launch could run a program
+  from a place the server chose. Only the app's own screens can reach those
+  settings now.
+- **Every server could read your clipboard without asking.** Haven never needed
+  it, and the permission is gone. Copying into the clipboard still works.
+
+---
+
+## v1.4.35
+
+### Fixed
+- **The taskbar button could blink forever.** The flash only stopped once every unread was read, so an unread you could not or did not want to open kept the button blinking even with the app in front of you. Clicking into the app stops the blinking now; the unread badge stays until things are read. Reported by quakeman00. (Haven #5683)
+- **Running from source on Node 26 lost per-app audio.** Setup rebuilt the audio addon against the installed Node's headers, which on Node 26 add clang-only link flags that Visual Studio rejects, and because the rebuild cleans first, the working addon was deleted too. The share picker then only offered System Audio and No Audio. Setup now builds against Electron's headers and only falls back to the plain build. Installers were never affected: the release build runs on its own pinned Node and checks that the addon loads.
+- **Electron's logo on the Windows taskbar when run from source.** The app sets its Windows app id now, so the taskbar shows the Haven icon.
+
+---
+
+## v1.4.34
+
+### Added
+- **The native window follows the page palette.** Matrix, Braid, Compact and
+  the other themes update the Electron chrome background from `--bg-primary`
+  and `--accent`, so a layout overlay no longer leaves a leftover strip of
+  the previous color. By @Amnibro. (#53)
+
+### Fixed
+- **Tab, Caps Lock and the backtick key can be push-to-talk keys.** Electron refuses some keys on their own as a global shortcut, and a key the input hook had taken instead was reported back to the settings page as a conflict, so the page threw it away. A key Electron refuses now goes through the input hook, and a key the hook holds counts as registered. Reported by Constooli. (#38)
+
+---
+
+## v1.4.33
+
+### Added
+- **Right-click menu on pictures.** Save Image, Copy Image and Open Image in Browser on any picture, including one opened in its own window, which had no menu at all before. (Haven #5663)
+- **Save Image uses a native save dialog.** Right-click → Save Image on a photo asks where to put the file. Chromium's `<a download>` does nothing for a lot of proxied http(s) images; the page hands us the bytes instead. Thanks to @Amnibro.
+- **An unreachable server shows a Haven page with a way out.** A refused localhost (or any dead host) used to leave Chromium's error document, or dump you at Welcome and destroy that window so the next hop had nothing to show. The main window now loads a Try Again / Go Back to Welcome / Go Back to My Server page, and Welcome stays hidden so those buttons can bring it back. Thanks to @Amnibro.
+- **Known servers are one click away when a server is down.** The Join a Server page lists every server this app has connected to, each with a remove button, and the unreachable-server page lists your other servers, so a home server that is down for maintenance no longer means retyping an address. (Haven #5666)
+
+### Changed
+- **Electron 42.** Up from 33, on a Node 22 toolchain, and every pull request now builds on Windows, Linux and macOS before it lands. Building from source needs Node 22.23.2 or newer; Setup.bat checks. Thanks to @bernardokcosta.
+
+### Fixed
+- **Hold-mode push to talk while the Haven window itself is focused.** Several people on Windows saw hold mode go quiet whenever the app had focus and work again the moment it was minimised or behind a game. When the window is focused the page receives the key events itself, so the binding is followed there too, alongside the input hook. Each path only flips the mic when the state has to change, so the two never fight. Please try it and say whether it holds up. (Haven #5603, #38)
+- **Push to talk reads the mic state from the app itself** rather than guessing it from the button, and logs every press and release to the console (View, Toggle Developer Tools) with the state it saw, so a report can show exactly where it stops. (Haven #5603, #38)
+- **The memory watchdog could reload the page mid-call.** Its "is the user in voice" check looked for a global the web app never set, so the answer was always no. It reads the right one now.
+- **Closing the system's screen share prompt on Linux no longer takes the app with it.** Cancelling the desktop portal rejected the source lookup, and nothing caught it. It counts as a cancel now. Try and confirm. (#50)
+- **Closing the app window left it running unseen.** The welcome window is kept hidden behind the app since the unreachable-server page, and a hidden window still counts as open, so closing the app window no longer quit. It does again.
+
+---
+
+## v1.4.32
+
+### Added
+- **Check for Updates in the Help menu and on the tray icon.** The app only ever checked quietly at start-up, so there was no way to ask. The new entry checks on demand and says when you are already on the latest version. (Haven #5627)
+
+### Fixed
+- **Push to talk in toggle mode did nothing on a mouse button or a bare modifier key.** Those bindings go through the input hook, and the hook sent an event name the app never listened for, so the press was dropped. It sends the same toggle event the shortcut API path uses. (Haven #5603, #38)
+- **Hiding the menu bar no longer leaves a bare strip along the bottom of the window.** The server view kept the height it had with the bar showing, so the app shifted up and a slice of empty window showed under it. It is re-fitted when the setting changes. (Haven #5626)
+- **The screen share picker sometimes had no scroll bar for application windows.** The list was `flex: 1` beside siblings that never shrink inside a `max-height` box, so a tall audio-app row could squeeze it to nothing. The box has a definite height now, the list keeps a minimum height, the audio row scrolls on its own past 30vh, and the scrollbar is visible. Its Cancel button no longer inherits the server picker's full-width rule. Reported by Dispencer2.
+- **Push to talk in hold mode no longer spam-toggles when the input hook is unavailable.** A key that still goes through Electron's shortcut API re-fires on OS auto-repeat, and each repeat flipped mute. Hold is emulated there instead: talk on the first press, release 350 ms after the repeats stop. Reported by Dispencer2.
+
+---
+
+## v1.4.31
+
+### Added
+- **Haven's own window shows up in the screen share picker.** Handy for checking what a stream looks like from the other side. Some setups never listed the app doing the capturing, so it is now added by hand. (Haven #5604)
+
+### Fixed
+- **The screen share picker follows the app's theme.** It used one fixed dark palette whatever theme was on; it now takes its colours and font from the theme like the other dialogs. (Haven #5605)
+- **Push to talk in hold mode works on ordinary keys and combos.** A hold-mode PTT bound to something like V or Ctrl+Space could only toggle, because the shortcut API Electron offers has no key release. Those bindings now go through the same input hook that already handled bare modifiers and mouse buttons, so the mic opens on press and closes on release. The right-hand Ctrl, Alt, Shift and Meta keys now count for a bare-modifier binding too. (Haven #5603)
+
+---
+
+## v1.4.30
+
+### Added
+- **The app speaks Portuguese (Brazil), with more languages ready to follow.** The welcome screen, splash, menus, tray, dialogs, update banner, server picker and screen share picker are all translated, with a Language menu (Automatic, English, Português) that applies without a restart. The app follows the language you pick inside Haven, and picking one in the app updates Haven to match. Thanks to @bernardokcosta.
+
+### Fixed
+- **Maximizing or going fullscreen on GNOME Wayland could leave the app at its old size with the splash showing around it.** The active server view now follows the window natively and re-checks its size once the transition settles. The same fix covers X11 window managers such as dwm. Thanks to @bernardokcosta, and to lzhecz for confirming the X11 case.
+
+### Changed
+- The release workflow creates the GitHub release before the build uploads its files, so a tag can no longer end up with two releases the way 1.4.29 did.
+
+---
+
+## v1.4.29
+
+### Fixed
+- **The AppImage refused to open on Fedora and newer Ubuntu with a "requires FUSE" error.** It was packed with the legacy AppImage runtime, which needs libfuse2 on the host, and those distributions no longer ship it, so having fuse3 installed did not help. The build now uses the static AppImage runtime, which needs no FUSE library at all. Older builds can still be started with `--appimage-extract-and-run`. Reported by Sunie on Fedora 44.
+- **Chromium Autofill warnings came back on startup.** Chromium keeps only the last occurrence of a command line switch, and a second `disable-features` switch was overwriting the first, so the Autofill feature flag was lost. Folded into a single switch.
+
+### Changed
+- The README no longer labels the desktop app as beta. It has been the daily driver since launch and is at least as stable as the browser client.
+
+---
+
+## v1.4.28
+
+### Fixed
+- **"No Haven server detected automatically" when the server was sitting right next to Haven Desktop.** The scan that looks for a local Haven install reads each candidate's `package.json` and checks the name inside it. Haven's `package.json` is saved with a UTF-8 byte order mark, which the reader used here does not tolerate, so the check threw and the folder was skipped without a word. That happened for every candidate, including the sibling folder it looks at first, so the Server Setup screen reported nothing found and offered to browse or start fresh. The marker is now stripped before the file is read.
+
+---
+
+## v1.4.27
+
+### Fixed
+- **The two main fixes listed under v1.4.26 were not actually in the v1.4.26 build.** That release commit carried only the version bump and the changelog, so the code never shipped. Both are included for real in this build.
+- **First window maximize/resize could fake-disconnect voice while a stream was open.** Background server BrowserViews were created at 0x0 with autoResize width/height true. On the first maximize Electron applied the window delta to every auto-resizing view, so hidden badge-poller views ballooned and could stack over the active session. Bounds are now owned explicitly: only the active view is sized to the content area; background views stay pinned at 0x0 with autoResize off; maximize/unmaximize/fullscreen/resize all re-sync.
+- **Copy Image from the lightbox failed inside the desktop app** with a browser-style clipboard toast. Main-process clipboard write now focuses the window, accepts raw base64 (not only data URLs), uses clipboard.write image, and exposes clipboardWriteText as a fallback. Pairs with Haven renderer changes in app-media.js.
+
+### Added
+- clipboard write-text IPC plus window.havenDesktop.clipboardWriteText for gesture-free text clipboard writes from the renderer.
+
+---
+
+## v1.4.26
+
+### Fixed
+- **First window maximize/resize could fake-disconnect voice while a stream was open.** Background server BrowserViews were created at 0x0 with autoResize width/height true. On the first maximize Electron applied the window delta to every auto-resizing view, so hidden badge-poller views ballooned and could stack over the active session. Bounds are now owned explicitly: only the active view is sized to the content area; background views stay pinned at 0x0 with autoResize off; maximize/unmaximize/fullscreen/resize all re-sync.
+- **Copy Image from the lightbox failed inside the desktop app** with a browser-style clipboard toast. Main-process clipboard write now focuses the window, accepts raw base64 (not only data URLs), uses clipboard.write image, and exposes clipboardWriteText as a fallback. Pairs with Haven renderer changes in app-media.js.
+- **Removed the duplicate desktop footer.** The web app's status bar is now the single debug footer, so the two no longer stack.
+
+### Added
+- clipboard write-text IPC plus window.havenDesktop.clipboardWriteText for gesture-free text clipboard writes from the renderer.
+
+---
+
+## v1.4.25
+
+### Fixed
+- **Right-click did nothing on selected text or links.** The desktop app's `BrowserView` has no built-in context menu, and Haven's handler only built a menu for misspelled words, so right-clicking normal text, an input, or a link offered no Copy/Cut/Paste/Select All, and copying only worked for images. The context menu now adds standard Cut/Copy/Paste/Select All (driven by the selection's edit flags) and a Copy Link item, on top of the existing spellcheck suggestions.
+
+---
+
+## v1.4.24
+
+### Fixed
+- **Desktop app refused to launch on Windows after the v1.4.23 update (#5422).** v1.4.23 shipped a truncated `src/main/main.js`: the last 11 lines, including the closing brace of `installLinuxDesktopEntry()`, got chopped off in transit between editors. Electron loaded the asar, hit `SyntaxError: Unexpected end of input` halfway through main bootstrap, and surfaced the "A JavaScript error occurred in the main process" dialog instead of opening a window. Reinstalling didn't help; the same broken file shipped inside the installer. Rebuilt `main.js` from a known-good base and re-applied the v1.4.23 title-bar fix on top, then parse-checked every file in `src/main/` before tagging.
+
+---
+
+## v1.4.23
+
+### Fixed
+- **Window title stuck on "Loading Haven…" forever.** The splash page that the main `BrowserWindow` loads while a server's `BrowserView` boots has `<title>Loading Haven…</title>`, and `BrowserView`s are a separate `webContents` whose `<title>` does NOT propagate up to the host window. So once the splash was covered by the actual Haven UI, the OS chrome went on saying "Loading Haven…" indefinitely (looking, to many users, like the app had hung even though it was fully usable underneath). The active view's title is now mirrored to `mainWindow.setTitle()` on `did-finish-load`, `did-fail-load`, every `page-title-updated`, and every `switchToServer` swap, with a "Haven" fallback when the page title is empty or itself still says "Loading Haven".
+
+---
+
+## v1.4.22
+
+### Added
+- **`clipboard:write-image` IPC for renderer image-copy (Haven 3.21.0 followup).** New main-process IPC handler accepts a data URL or raw base64 PNG and writes it to the OS clipboard via Electron's `clipboard.writeImage` + `nativeImage`. Exposed on the renderer as `window.havenDesktop.clipboardWriteImage`. The renderer now prefers this path over `navigator.clipboard.write` for right-click → Copy image because the browser API was silently rejecting the write with `NotAllowedError`: the user-gesture token gets dropped across the async fetch + decode chain, and Chromium refuses any subsequent clipboard write without an active gesture. The main-process clipboard has no such restriction. Falls back to the web API + final text-URL fallback when the desktop hook isn't present.
+
+---
+
+## v1.4.21
+
+### Added
+- **Opt-in G-Sync / VRR FPS-drop workarounds (#35).** Two new toggles in `Settings → Debug` (Desktop only): "Disable GPU vsync (Nvidia G-Sync fix)" and "Remove Chromium frame-rate cap (Nvidia G-Sync fix)". Both apply Chromium command-line switches (`--disable-gpu-vsync` and `--disable-frame-rate-limit`) at app boot, working around the upstream Chromium issue where renderers on Nvidia G-Sync displays get stuck negotiating a tiny refresh rate after the window is hidden or restored and never recover (symptom: the whole app dropping to ~5 FPS until you force a fixed refresh rate in Nvidia Control Panel). Off by default because both flags can introduce visible tearing on non-VRR monitors. Require a restart to take effect.
+
+### Fixed
+- **Haven Desktop settings checkboxes and keybind recorders unresponsive until the matching left-nav item was clicked (#36).** The Shortcuts section's record buttons and the Desktop App / Debug section's preference change-listeners were only wired up *on* the click of the left-nav item that owns them. If you opened Settings and scrolled straight to a checkbox or a keybind recorder, nothing happened until you happened to click "Shortcuts" or "Desktop App" in the nav, at which point the section initialised and started behaving. Haven now eagerly initialises both Desktop sections the moment Settings opens, so every control is responsive immediately regardless of where you scroll. (Renderer change in Haven 3.19.x.)
+
+---
+
+## v1.4.20
+
+### Fixed
+- **Useless "Failed to register shortcut" toast (#184).** When binding a Mouse4/Mouse5 or bare-modifier PTT key on a machine where `uiohook-napi` couldn't load, the renderer used to show a one-size-fits-all "may already be in use, or the desktop app version doesn't support this binding type yet" toast with no actionable next step. The desktop IPC handler now returns a structured outcome per shortcut (`{ ok, reason }` where reason is `ok` / `uiohook-unavailable` / `conflict`) and the renderer translates each into a specific toast that tells the user what's actually wrong and what to do about it (install libuiohook, pick a different combo, etc.). Pairs with the Haven server-side renderer update.
+
+---
+
+## v1.4.19
+
+### Changed
+- **Clearer logging when `uiohook-napi` can't load (#184).** Bare-modifier and Mouse4/Mouse5 PTT bindings depend on the optional `uiohook-napi` native module. When it fails to load (most commonly on Linux distros that don't have `libuiohook` system-installed), the console previously just said "uiohook-napi unavailable". The warning now includes a platform-specific install hint (Arch pacman + yay incantation, Debian/Ubuntu apt packages, macOS Accessibility/Input Monitoring permission, Windows reinstall/rebuild suggestion) so users on Linux in particular don't have to dig through GitHub issues to find the right command. Same hint also fires on `uIOhook.start()` failures.
+
+---
+
+## v1.4.18
+
+### Changed
+- **Splash screen now uses the official Haven hex-H logo** instead of the generic solid-purple hexagon glyph. Same gentle pulse animation, just the real brand mark while the server view loads.
+
+---
+
+## v1.4.17
+
+### Fixed
+- **Screen-share encoder stalled when Haven was hidden behind another window (#5379).** Chromium treats a window covered by another full-size window as "occluded" and starts throttling its renderer, which stalls the WebRTC screen-share encoder and introduces audio/video desync that persists for the rest of the share. Haven Desktop already disabled `backgroundThrottling` on the server views, but Chromium's *native* occlusion detection (a separate code path on Windows) was still kicking in. Disabled the `CalculateNativeWinOcclusion` feature so renderers stay awake when the window is merely behind another window. This does NOT cover the explicit-minimize case; that one is still subject to OS-level suspension and would require re-enabling the `disable-renderer-backgrounding` flag, which was removed in 1.3.4 because it starved the renderer event loop. Workaround for minimize: shrink the window instead of minimizing it during a screen-share session.
+
+---
+
+## v1.4.16
+
+### Added
+- **Splash screen while the server view loads.** Launching Haven Desktop used to drop you on a flat dark rectangle for 30-40 s on cold-start cross-tunnel HTTPS handshakes (the BrowserView was already full-size and just blank while the renderer fetched). The main window now loads a small `splash.html` (hex logo, spinner, "Loading Haven…") immediately on creation, and the active BrowserView is kept at 0×0 until its first `did-finish-load`. A 20 s safety-net timer expands the view anyway if the server is unreachable, so you'll see the browser's own error page instead of an eternal spinner. Background-preloaded server views stay at 0×0 until you actually switch to them, then the switch-to handler expands them to full size.
+
+---
+
+## v1.4.15
+
+### Fixed
+- **Ctrl+Shift+Home was hijacked globally by Haven Desktop.** The "Reset to Welcome Screen" escape hatch was registered as a system-wide shortcut, meaning it would fire even when Haven wasn't focused (interfering with text editors, terminals, and other apps that use Ctrl+Shift+Home to select text). It is now a regular in-app menu accelerator under View, so it only works when Haven is the active window.
+
+---
+
+## v1.4.14
+
+### Fixed
+- **Spurious "Couldn't connect to that server" toast shown on launch.** Background preloads (`scheduleBackgroundServerPreload`) were triggering the error toast on the primary view when a background server failed to load at startup. Added a `!background` guard so the toast only fires for user-initiated connections.
+- **Haven sometimes wouldn't open after a quick close-then-relaunch (Windows error 32).** Chromium's single-instance lock can take a moment to release after the previous process exits. If you relaunched before the OS fully freed the lock file, Haven would silently quit and you'd have to click again. Haven now waits 1.5 seconds and relaunches itself automatically in that case, so the window always appears without any extra effort on your part.
+
+---
+
+## v1.4.13
+
+### Added
+- **#184 (final item): OS-level PTT for bare modifiers and mouse buttons.** The recorder UI in 3.11.x can already capture lone modifiers (`Shift`/`Alt`/`Ctrl`/`CommandOrControl`) and `Mouse4`/`Mouse5`, but Electron's `globalShortcut.register()` rejects those bindings, so they only worked when Haven was focused. Desktop now loads the optional `uiohook-napi` dependency and routes those bindings through OS-level input hooks so they fire even when Haven is in the background. Ordinary keyboard accelerators continue to use Electron's built-in `globalShortcut`. PTT also now respects the recorder's `pttMode` setting: in `hold` mode the renderer unmutes on key/button down and re-mutes on key/button up; in `toggle` mode a single press flips the mute state.
+- **`pttMode` accepted by `shortcuts:register`.** The renderer recorder has been writing this field since 3.11; it was previously dropped by the IPC handler's allow-list. Now persisted and honoured.
+
+### Fixed
+- **#5346: native screenshare/audio addon crashed at runtime with `undefined symbol: pa_simple_new` on PipeWire-pulse systems (CachyOS / Arch family).** The Linux build only linked `libpulse` (`-lpulse`) but the `pa_simple_*` API the addon actually calls lives in a separate library, `libpulse-simple` (`-lpulse-simple`). On most distros some other dependency drags `libpulse-simple.so.0` into the process incidentally, but on CachyOS with PipeWire's pulse compatibility shim the symbol isn't resolved at all and the AppImage crashes the moment `pa_simple_new` is called, exactly matching the reported `LD_PRELOAD=/usr/lib/libpulse-simple.so.0` workaround. `binding.gyp` now passes both libraries to `pkg-config`, with a `-lpulse -lpulse-simple` fallback.
+
+### Notes
+- `uiohook-napi` is declared as an *optional* dependency. If it fails to install (no native toolchain, unsupported platform), Haven still launches and ordinary keyboard shortcuts still work; only the bare-modifier / mouse-button bindings are no-op'd. A console warning is logged at startup in that case.
+
+---
+
+## v1.4.12
+
+### Fixed
+- **#184: "Screenshare canceled or not supported" error after picking a source.** `desktopCapturer` source IDs aren't stable: Windows can re-enumerate the source set between the moment the picker opens and the moment the renderer attaches the stream, leaving the originally picked ID gone. The handler now re-enumerates at attach time and falls back gracefully (exact ID → same name + display_id → any screen on the same display → first available screen) instead of returning an empty stream and surfacing a generic error.
+
+## v1.4.11
+
+### Fixed
+- **Mic speaking indicator would permanently stop illuminating after extended voice chat sessions.** The indicator was driven by server echo (the `voice-speaking` event relayed back through the server), but if the socket briefly lost voice-room membership during a reconnect or network hiccup, the echo never arrived, and since the client only emits on the `false → true` speech transition, it never recovered. The indicator is now driven directly by the local audio analyser, making it instant and reliable.
+- **Hard page reload during screen sharing kicked the user from their voice session every ~2 minutes.** The memory monitor was set to reload the renderer at 512 MB with a 2-minute cooldown. Screen sharing easily consumes that much memory, triggering a predictable reload cycle. The threshold is now 1536 MB (1.5 GB), the soft-trim threshold is 500 MB, and the reload cooldown is 5 minutes. Additionally, the hard reload is now skipped entirely if the user is currently in voice or screen sharing; only the soft DOM trim runs instead.
+
+---
+
+### Fixed
+- **Per-app audio: game audio apps sometimes not appearing in the audio picker** (e.g. Terraria). The audio app enumeration was only querying the default console audio endpoint (`eConsole`). Engines like MonoGame/XNA (Terraria), FMOD, and OpenAL can register their audio sessions on a different render endpoint, so those apps were invisible in the picker. Enumeration now iterates all active render endpoints via `IMMDeviceEnumerator::EnumAudioEndpoints`, with per-PID deduplication across endpoints.
+- **Voice activity indicators go dark when Haven is minimized.** Chromium was throttling `setInterval` calls and auto-suspending the `AudioContext` when the window lost focus, making mic/voice indicators freeze until the window was restored. `backgroundThrottling` is now disabled on all server views so audio processing continues normally in the background.
+
+---
+
+## v1.4.9
+
+### Fixed
+- **Per-app audio capture was failing on most Windows machines** (contributed by metheos, PR #27). `ActivateAudioInterfaceAsync` was returning `0x8000000E` because the `ActivateHandler` COM object didn't implement `IAgileObject`/`IMarshal`, so Windows couldn't marshal the async completion callback across thread contexts. The handler now registers a Free-Threaded Marshaler via `CoCreateFreeThreadedMarshaler`, which is required for WASAPI process loopback async activation to succeed. Additionally: startup synchronization replaced the old Win32 event handle + atomic bool with a proper `condition_variable` + state enum (timeout extended 4s to 12s); the N-API PCM callback now copies audio data into JS-owned `ArrayBuffer` memory to eliminate external buffer ownership hazards; `main.js` adds a `safeCallback` guard to prevent double-invoke of the `DisplayMedia` callback, retries `desktopCapturer.getSources` without thumbnails when WGC init fails on some Windows builds, and uses a `requestId` to prevent stale picker responses from resolving the wrong share request.
+
+---
+
+## v1.4.8
+
+### Fixed
+- **Screen share completely broken: clicking the screen-share button did nothing, no picker, no error.** The 1.4.7 release shipped `src/main/app-preload.js` with literal `\n`, `\u2014`, and `\\'` escape sequences embedded in the source of the `installGetDisplayMediaOverride()` function instead of actual newlines, em-dashes, and a quote. That made the whole preload a JavaScript syntax error, so it never loaded: no `screen:show-picker` IPC listener, no `getDisplayMedia` override, no notifications override, nothing. Main would fire the picker IPC, the renderer would never respond, main would silently time out after 60 seconds and reject the call. Restored the block to valid JS.
+
+---
+
+## v1.4.7
+
+### Fixed
+- **Silent screen shares on machines where Windows Process Loopback API is unavailable.** When per-app or system-clean capture failed (`ActivateAudioInterfaceAsync` returning `E_INVALIDARG` etc.), the `getDisplayMedia` override stripped Electron's loopback audio track up front and then sat waiting for native PCM that never came, leaving every share dead-silent. Main now always asks Electron for a loopback track when any audio mode is selected, and the override only strips it after native PCM is confirmed flowing. Native failure now keeps Electron loopback so the share is at least audible (with a console warning that Haven voice may echo; the share-mode badge already surfaces this state).
+
+---
+
+## v1.4.6
+
+### Fixed
+- **Defunct server lockup, take three.** The previous "Haven Not Found" / "Connection Problem" dialogs let the user pick "Keep Loading", which silently kept the retry loop hammering a dead server with no UI to escape, and even a passive close via X / Esc still left the user stranded mid-load.  Both dialogs are gone now: load-content waits drop from 15 s to 5 s, the transient-error retry budget drops from ~30 s to ~1 s, and any failed load just snaps secondary servers back to the primary view (with a toast) or kicks a primary failure to the welcome screen automatically.  The user is never asked to make a choice during a connection failure.
+
+---
+
+## v1.4.5
+
+### Fixed
+- **Clicking a Haven message link from one channel to another spawned a brand-new desktop client / second window** (issue #5306, surfaced on Linux).  `target="_blank"` deep-links to `/app.html?channel=…&message=…` were caught by `setWindowOpenHandler` and given `action: 'allow'` because they're same-origin, opening a fresh popup BrowserWindow.  We now detect Haven app deep-links specifically (path matches `/app(.html)?` or `/c/<code>`, or has `channel=`/`message=` query) and dispatch `app:navigate-deep-link` over IPC; the renderer hops to the channel and `_jumpToMessage`s in-place inside the existing view.  Game / asset pop-outs (e.g. `/games/foo.html`) still get a real child window.
+- **Defunct server lockup:** the "Haven Not Found" and "Connection Problem" dialogs only acted on the explicit "Go Back" button: clicking "Keep Loading" or closing the dialog with X / Esc left the user staring at a non-Haven page with no UI to escape, while the BrowserView's transient-error retry loop kept hammering the dead server.  Any answer that isn't an explicit "Keep Loading" (X close, Esc, default click-through) now snaps secondary servers back to the primary view, or kicks the user back to the welcome screen for the primary, so they're never frozen on an infinite reconnect.
+
+---
+
+## v1.4.4
+
+### Fixed
+- **Per-app screen-share audio fell back to silence** when WASAPI process-loopback couldn't bind to the chosen PID (game running elevated, transient PID, etc.).  We now chain per-app capture → system-minus-Haven (clean system audio that excludes our own voice) → Electron raw loopback as a final last-resort, so the user *always* gets some audio.  A small coloured badge in the share viewer now tells the streamer which mode they ended up in (green = per-app, blue = clean system, orange = fallback to clean system, red = Electron loopback / may include voice).
+- **Server-icon notification dots not appearing for messages from a different/background server**: the `notification-badge` IPC used strict `webContents` identity to figure out which server fired it, so a renderer reload (transient navigation, crash recovery) silently broke the lookup and no other open view ever lit up that server's dot.  Sender lookup now falls back to URL-match via `e.sender.getURL()`, and the per-server map is broadcast to **every** open BrowserView (not just the active one), so every sidebar updates its dots in real time.  The same fallback applies to `report-known-server-urls` so background views' filter sets survive reloads.
+
+---
+
+## v1.4.3
+
+### Fixed
+- **"Haven Not Found" / "Connection Problem" popups would trap the app forever if the user wasn't there to click a button.** Both load-failure dialogs now auto-dismiss after 30 seconds and quietly perform the default action (return to welcome, or switch back to your primary server). The popup message now mentions the auto-return so it's not surprising. The native dialog stays on screen until the user closes it; the underlying view has already been cleaned up by then so the buttons are effectively no-ops.
+
+---
+
+## v1.4.2
+
+### Fixed
+- **App crashed on launch with `Cannot read properties of undefined (reading 'isDestroyed')`**: the transient-error retry added in 1.4.1 dereferenced `view.webContents` after the background-preload view had already been destroyed. Retries now bail out cleanly if the view (or its `webContents`) is gone, ignore subframe load failures, and never run for background pre-load views (those are best-effort and were already cleaned up silently).
+
+---
+
+## v1.4.1
+
+### Fixed
+- **Taskbar badge filtered to visible servers**: the taskbar badge now only lights up for servers whose unread indicators are actually visible in at least one open server view. Previously, background-preloaded views could trigger the badge for servers that had no icon in any sidebar, making the badge appear with nothing to point to.
+
+---
+
+## v1.4.0
+
+### Added
+- **Background server view preloading**: secondary servers are preloaded in the background so switching between them is nearly instant. (#5269)
+- **Server history sync to web client**: Desktop's known server list is now shared with the Haven web client on startup, so servers you've used in the app appear without re-entering the URL.
+
+### Fixed
+- **Server history cleanup**: server history entries are now deduplicated, validated, and legacy/malformed entries are cleaned up on read.
+
+---
+
+## v1.3.0
+
+### Added
+- **Server history and server picker**: the login page now remembers previously connected servers and lets you pick from them instead of re-typing the URL each time.
+- **Hide menu bar setting**: a new toggle in Settings → Desktop App hides the native menu bar (alt to show temporarily). Windows and Linux only.
+- **Privacy toggle for server address**: the server address shown in the desktop footer can now be hidden, matching the web privacy toggle.
+
+### Fixed
+- **Image copy permissions**: clipboard-write and clipboard-read permissions are now properly granted so copying images from chat works correctly in the desktop app.
+- **Per-app audio crash on Linux**: added safety wrapping to per-app audio capture callbacks to prevent a crash when the audio pipeline is torn down mid-capture on Linux. (#5254)
+- **Local server detection improvements**: local server paths are now persisted more reliably, and additional installer paths are recognized on first run, reducing "server not found" false negatives. (#22)
+- **AppData install paths**: server discovery now includes AppData install locations so self-hosted instances installed there are detected automatically.
+- **.deb sandbox permissions**: the Debian package now auto-fixes the chrome-sandbox SUID bit during post-install, resolving the startup failure on some Linux distributions.
+- **License references**: updated all license headers and references to AGPL-3.0.
+
+---
+
+## v1.2.0
+
+### Fixed
+- **Per-app audio pipeline overhaul** (#165): several bugs in the per-app audio path that together caused silence for viewers:
+  - ScriptProcessor fallback now uses 0 input channels (was 1 with nothing connected), which is more reliable in Chromium.
+  - IPC PCM data handler now correctly handles typed arrays with non-zero byte offsets and unknown buffer types instead of potentially misreading data.
+  - WASAPI capture loop now adapts to the device's actual mix format (channel count and sample type) when the preferred 48kHz stereo float32 initialization fails. Previously it hardcoded stereo float32 interleaving regardless of what the OS reported, which could produce garbled audio on systems with surround-sound or 16-bit mix formats. (#209)
+
+---
+
+## v1.1.9
+
+### Fixed
+- **Fullscreen reverted to v1.1.6 approach**: the overlay-based fullscreen rewrite from v1.1.7 broke MP4 embed fullscreen. Reverted to the original CSS class toggle (`haven-manual-fullscreen`) that was working in v1.1.6. Removed all the extra BrowserView resync handlers, `enter-html-full-screen` interceptors, custom fullscreen button injection, and DOM-manipulation overlay code that was causing the regression.
+
+---
+
+## v1.1.8
+
+### Fixed
+- **MP4 fullscreen regression**: v1.1.7's deferred BrowserView resync on un-maximize fired during fullscreen transitions (Windows fires `unmaximize` when leaving fullscreen), stomping the overlay with stale dimensions. Added a fullscreen transition guard so the deferred calls are skipped during/after fullscreen exit.
+- **Gray/purple box after un-maximize**: the deferred resync now also sends a renderer-side `resize` event to force CSS viewport recalculation, eliminating the gray strip left by stale `100vh` values.
+- **"Haven Not Found" false positive on login pages**: the isHaven check only looked for `#app-body` which doesn't exist on the Haven login page. Now also recognizes `.auth-page` and Haven page titles, so connecting to a friend's server no longer falsely triggers the "not a Haven server" dialog.
+- **Server switching destroys session**: clicking a friend's server icon and encountering any issue (load timeout, non-Haven page) offered "Change Server" which wiped all preferences and returned to the Welcome screen. Secondary server failures now offer "Go Back to My Server" and cleanly return to the primary server without resetting anything.
+- **Tray menu "Change Server" while on secondary**: the tray menu now shows "Back to My Server" when viewing a secondary server, switching back without resetting.
+
+---
+
+## v1.1.7
+
+### Fixed
+- **Game pop-out blocked in desktop**: the "Pop Out" button on games (e.g. Shippy Container) was blocked because Electron denied all `window.open` calls. Same-origin popups now open in a real child window.
+- **Gray box after un-maximizing**: double-clicking the title bar to restore from maximized could leave a gray/purple box covering part of the app because `getContentSize()` returned stale values during the OS animation. The BrowserView now re-syncs after a delay, matching the existing fullscreen exit behavior.
+
+---
+
+## v1.1.6
+
+### Fixed
+- **Per-application audio pipeline fallback** (#165): per-app audio capture failed silently in some Electron BrowserView environments where AudioWorklet blob URLs were blocked. Added a ScriptProcessorNode fallback when AudioWorklet fails, explicit AudioContext.resume() for suspended contexts, and a final fallback to system loopback audio if the entire pipeline fails.
+- **Reduced memory trend log spam**: memory usage delta logs now only print when the change exceeds 10 MB, cutting down unnecessary console output.
+
+---
+
+## v1.1.5
+
+### Fixed
+- **Notification click now navigates to the right channel**: clicking a native OS notification now opens the app and switches to the channel or DM where the message was sent, instead of just bringing the window to focus.
+
+---
+
+## v1.1.4
+
+### New Features
+- **Start Hidden to Tray**: when "Start on Login" is enabled, a new "Start Hidden to Tray" option lets the app launch minimized to the system tray instead of opening a window. Both options are in Settings → Desktop App.
+- **Voice join/leave OS notifications**: the desktop app now shows native OS notifications when someone joins or leaves a voice channel you're in.
+
+### Fixed
+- **Settings sections not visible**: the Shortcuts and Desktop App sections in Settings were showing in the navigation but the actual content panels stayed hidden. Both now display correctly when running in the desktop app.
+
+---
+
+## v1.1.3
+
+### Fixed
+- **Fullscreen now actually works**: video fullscreen (from the native controls' button or the `...` menu), stream tile fullscreen buttons, and stream/webcam PiP overlay fullscreen buttons all failed silently inside Electron's BrowserView layer. Implemented a complete manual fullscreen override in the preload that intercepts `requestFullscreen()` calls and handles them via CSS + IPC, making fullscreen work everywhere in the app.
+- **WGC ProcessFrame log spam eliminated**: the terminal was flooded with `wgc_capture_session.cc ProcessFrame failed` errors during any voice/screen-share session. Switched from `--log-level=3` (browser process only) to `--disable-logging`, which suppresses Chromium C++ logging across all subprocesses including the GPU process where the spam originates.
+- **Screen sharing broken by preload crash**: a DOM injection in the fullscreen patch ran before the HTML document existed, throwing an error that silently killed the rest of the preload script. Screen sharing, notifications, and other Desktop features stopped working. Fixed by deferring the CSS injection to `DOMContentLoaded`.
+- **PiP permissions**: added `picture-in-picture` and `fullscreen` to Electron's session permission grants so native PiP controls display correctly.
+
+---
+
+## v1.1.2
+
+### Updated
+- Bundled Haven server updated to v2.7.2, which fixes two scroll-position bugs: new root messages no longer leave the feed scrolled slightly short of the bottom, and switching channels / DMs now reliably lands at the latest message instead of a random earlier position.
+
+---
+
+## v1.1.1
+
+### Bug Fixes
+- **Renderer freeze from sync dialog deadlocks**: `window.prompt()` was implemented via a VBScript `InputBox` spawned by `cscript.exe` with a 5-minute `execSync` timeout. If the dialog spawned behind the app window, the main process blocked for up to 5 minutes with no way to dismiss it. Replaced with a native Electron dialog that returns instantly. Also removed the `disable-renderer-backgrounding` Chromium flag, which was preventing timer throttling and starving the renderer event loop.
+- **Renderer freeze from reflow storm**: the memory-check soft GC was calling `getBoundingClientRect()` on every image via `executeJavaScript` every 10 seconds, forcing 50+ synchronous layout recalculations per cycle. Removed layout-triggering calls entirely; the soft GC now only trims DOM node count (O(1)). Health checks replaced `executeJavaScript` with `webContents.isCrashed()` to avoid blocking the main process.
+- **Progressive slowdown from memory pressure**: default V8 heap (384 MB) and GPU memory budget (128 MB) were too tight for Haven’s DOM-heavy UI with RGB theme cycling and embedded media, causing frequent GC pauses. V8 heap raised to 512 MB, GPU budget to 256 MB, and tray menu rebuild interval reduced from 10s to 60s.
+- **Soft-GC message trim cap misaligned**: the Electron soft GC trimmed messages to 200, but the client already caps at 100, leaving up to 100 stale messages (~1200 DOM nodes) that were never cleaned up. Aligned the cap to 100.
+
+### Added
+- **Memory trend tracking**: a rolling-window telemetry system samples renderer memory every 30 seconds and logs a trend summary every ~2.5 minutes (e.g. `Memory trend: 85→142 MB (+57) ↑ over 10 min`). Renderer-side `[Haven Perf]` console messages are forwarded to the main process for server-log visibility without needing DevTools.
+
+### Improved
+- **Zombie process cleanup**: the server manager now kills any leftover process holding the configured port before starting, preventing "port in use" failures after crashes.
+- **Server auto-restart**: if the server process exits unexpectedly, it restarts after 2 seconds with a cooldown to prevent loops.
+- **Crash recovery**: after exhausting retry attempts, the app now performs a full BrowserView tear-down and rebuild instead of giving up permanently.
+
+---
+
+## v1.1.0
+
+### Bug Fixes
+- **SSL error flood causing blank screen + OOM crash**: when connecting to a Haven server over HTTPS with a self-signed certificate, the existing `certificate-error` handler only covered page navigation. WebSocket reconnection attempts (Socket.IO) and fetch/XHR requests still hit Chromium's native `ssl_client_socket_impl` layer, which rejected the cert and logged an error object for every single failed handshake. During reconnection storms, thousands of these errors accumulated in the renderer's heap until Oilpan's garbage collector couldn't allocate, causing a fatal OOM crash and a blank screen. Fix: `setCertificateVerifyProc` on the default session now accepts all certificates at the session level, which covers *all* connection types (navigation, WebSocket, fetch, XHR) before the C++ TLS code ever sees a failure. The SSL error flood no longer occurs, so the renderer never OOMs.
+- **Infinite crash-reload loop**: the v1.0.9 `render-process-gone` handler would reload the page unconditionally on every crash, creating an infinite crash → reload → crash cycle if the underlying cause persisted. Crash recovery now has a retry limit of 3 with exponential back-off (1.5 s → 3 s → 6 s), and resets the counter after 60 seconds of stability.
+
+---
+
+## v1.0.9
+
+### Added
+- **Global voice keyboard shortcuts**: mute, deafen, and push-to-talk can now be assigned to system-wide hotkeys in Settings → Keyboard Shortcuts. Shortcuts work even when Haven Desktop isn't the focused window.
+
+### Bug Fixes
+- **Blank app window**: the renderer window could go completely blank during server restarts, reconnects, or rapid view transitions. Root cause: `webContents.send()` fires through Electron's native C++ IPC layer *before* throwing a catchable JS exception, so a simple `try/catch` isn't enough; the native send to a disposed render frame still corrupts the renderer's IPC channel. Fix:
+  1. A new `safeSend()` helper checks `wc.mainFrame` (which returns `undefined` when the frame is disposed) *before* calling `send()`, preventing the native code from ever attempting the IPC send.
+  2. Server log forwarding is now batched to 50 ms intervals instead of firing synchronously for every line of stdout. This eliminates the rapid-fire IPC bursts during startup/reconnect.
+  3. A `render-process-gone` crash-recovery handler on each BrowserView automatically reloads the page if the renderer dies for any reason, so the screen can never stay permanently blank.
+
+---
+
+## v1.0.8
+
+### Bug Fixes
+- **Auto-launch no longer broken after server load failure**: a bug introduced in v1.0.7 (alongside the FCM/installer update) caused the app to forget your saved server on any load failure or startup hiccup, permanently dropping you back to the welcome screen on every subsequent launch. The fix: your server preferences (path, URL, mode) are now preserved across failures so the next launch retries automatically. Use Ctrl+Shift+Home to intentionally reset and return to the welcome screen.
+
+---
+
+## v1.0.7
+
+### Bug Fixes
+- **Taskbar badge now reliably appears for unread messages**: three bugs were causing the overlay badge to fail or behave erratically: (1) a `focus` event cleared the badge immediately whenever the window was focused, even with unreads remaining; (2) an `isFocused()` guard on the IPC handler blocked the badge from being set while the app was open but you were in a different channel; (3) `flashFrame` was firing unconditionally, causing taskbar flicker even when the window was already in focus. All three are fixed.
+
+### Improvements
+- **Haven-branded notification badge**: the overlay icon is now a Haven hexagon with the app's signature purple gradient and a "!" mark, instead of a plain fuchsia circle.
+
+---
+
+## v1.0.6
+
+### Improvements
+- **Screen share picker: audio/cancel/share always visible**. The Application Audio selection and Cancel/Share buttons are now pinned outside the scrollable area. Only the screen and window list scrolls, so you never need to scroll down to find the buttons.
+- **"No Audio" option added to screen share picker**: a new 🔇 No Audio button lets you share your screen with no audio at all. The existing System Audio option now correctly shows a 🔊 speaker icon instead of the muted speaker.
+
+### Bug Fixes
+- **Ghost voice-chat state on app restart**: closing the app while in a voice channel no longer causes the app to "think" you’re still in voice on the next launch (blocking you from joining again). The saved voice channel is now cleared on each fresh page load; auto-rejoin on network blips within the same session is unaffected.
+
+---
+
+## v1.0.5
+
+### Bug Fixes
+- **Windows volume ducking**: The desktop app no longer causes Windows to lower its own volume (or other apps') in the volume mixer when voice activity is detected. The audio capture stream is now categorized as `AudioCategory_Other`, opting out of Windows' automatic communications ducking behavior.
+
+---
+
+## v1.0.4
+
+### New Features
+- **Auto-update system**: When a new version is available, a banner appears at the bottom of the screen. Click "Download" to fetch the update, then "Restart & Install" to apply it. No manual downloads needed.
+
+### Bug Fixes
+- **Tray icon now shows correctly** in packaged builds (assets were not being bundled).
+- **Soft-lock recovery**: If the app gets stuck on a blank screen (e.g. saved server became unreachable), press **Ctrl+Shift+Home** to reset back to the welcome screen. A 15-second page-load timeout also offers to take you back automatically.
+- **Wayland screen-share picker**: Improved dismiss behavior: background overlay click, better ESC handling, and focus restoration after closing the picker.
+
+---
+
+## v1.0.3
+
+- Initial public release.

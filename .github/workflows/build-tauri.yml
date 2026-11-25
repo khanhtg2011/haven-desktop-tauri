@@ -1,0 +1,67 @@
+name: Build Haven Desktop (Tauri v2 + Rust)
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v2.*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-tauri-windows:
+    name: Build Windows (x64)
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - name: Rust Cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+
+      - name: Install npm dependencies
+        run: npm install --ignore-scripts
+
+      - name: Run Bridge & Config Tests
+        run: npm test
+
+      - name: Verify Rust Crate
+        run: cargo check --manifest-path src-tauri/Cargo.toml
+
+      - name: Build Tauri Desktop Client
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: 'Haven Desktop v__VERSION__ (Tauri Rust Edition)'
+          releaseBody: 'Ultra-lightweight Haven Desktop client built with Rust and Tauri v2.'
+          releaseDraft: false
+          prerelease: true
+          args: --target x86_64-pc-windows-msvc
+
+      - name: Upload Windows Artifacts
+        uses: actions/upload-artifact@v4
+        if: startsWith(github.ref, 'refs/tags/') != true
+        with:
+          name: haven-desktop-tauri-windows-x64
+          path: |
+            src-tauri/target/x86_64-pc-windows-msvc/release/bundle/nsis/*.exe
+            src-tauri/target/x86_64-pc-windows-msvc/release/bundle/msi/*.msi
+            src-tauri/target/x86_64-pc-windows-msvc/release/haven-desktop.exe

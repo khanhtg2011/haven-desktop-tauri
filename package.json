@@ -1,0 +1,24 @@
+{
+  "name": "haven-desktop-tauri",
+  "version": "2.0.0-alpha.1",
+  "description": "Haven Desktop (Tauri v2 Edition): Ultra-lightweight Rust & WebView2 client with Win32 GDI+ gaming overlay",
+  "author": {
+    "name": "Haven Contributors",
+    "email": "ancsemi@haven-app.com"
+  },
+  "license": "AGPL-3.0",
+  "homepage": "https://github.com/khanhtg2011/haven-desktop-tauri",
+  "engines": {
+    "node": ">=22.23.2",
+    "npm": ">=10"
+  },
+  "scripts": {
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "test": "node --test test/*.test.js"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.6"
+  }
+}
